@@ -52,9 +52,9 @@ else()
 
     if(RDKAFKA_STATIC_LINK)
         set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_STATIC})
-    else
+    else()
         set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_LIBRARY})
-    endif
+    endif()
 
     set(RDKAFKA_LIBRARY ${RDKAFKA_LIBRARY_PATH} ${OPENSSL_CRYPTO_LIBRARY} ${OPENSSL_SSL_LIBRARY})
 endif()
