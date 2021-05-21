@@ -20,6 +20,7 @@ endif()
 
 set(STATIC_BUILD "OFF", CACHE BOOL "Link dependencies statically?")
 set(WITH_OPENSSL_1_1 "OFF" CACHE BOOL "Require openssl version >= 1.1?")
+set(RDKAFKA_STATIC_LINK "OFF", CACHE BOOL "Link with rdkafka statically?")
 
 if (WITH_OPENSSL_1_1)
     find_package(OpenSSL 1.1 REQUIRED)
@@ -50,9 +51,12 @@ else()
     find_package(RdKafka)
     # Link RdKafka transitive dependencies manually
 
+    message("RDKAFKA_STATIC_LINK value: ${RDKAFKA_STATIC_LINK}")
     if(RDKAFKA_STATIC_LINK)
+        message("Going to link with found rdkafka statically")
         set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_STATIC})
     else()
+        message("Going to link with found rdkafka dynamically")
         set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_LIBRARY})
     endif()
 
