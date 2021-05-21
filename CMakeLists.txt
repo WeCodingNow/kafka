@@ -49,7 +49,14 @@ else()
     set(RDKAFKA_FIND_REQUIRED ON)
     find_package(RdKafka)
     # Link RdKafka transitive dependencies manually
-    set(RDKAFKA_LIBRARY ${RDKAFKA_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY} ${OPENSSL_SSL_LIBRARY})
+
+    if(RDKAFKA_STATIC_LINK)
+        set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_STATIC})
+    else
+        set(RDKAFKA_LIBRARY_PATH ${RDKAFKA_LIBRARY})
+    endif
+
+    set(RDKAFKA_LIBRARY ${RDKAFKA_LIBRARY_PATH} ${OPENSSL_CRYPTO_LIBRARY} ${OPENSSL_SSL_LIBRARY})
 endif()
 
 include_directories(${TARANTOOL_INCLUDE_DIRS})
